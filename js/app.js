@@ -1,4 +1,5 @@
 let boardPieces = document.querySelectorAll('.board-piece');
+let board = document.querySelector('.game-space');
 let yellowChips = document.querySelectorAll('.yellow-chip');
 let redChips = document.querySelectorAll('.red-chip');
 let instructions = document.querySelectorAll('.instructions h2');
@@ -11,6 +12,8 @@ let row;
 let win = false;
 let yellowPoints = 0;
 let redPoints = 0;
+let lostPoints = 0;
+let moveCount = 0;
 
 let gameTable = [
     [0, 0, 0, 0, 0, 0, 0],
@@ -26,7 +29,11 @@ rematch.forEach(button => {
 
         win = false;
 
-        whoseTurn = ((yellowPoints + redPoints) % 2 === 0);
+        moveCount = 0;
+
+        board.style.opacity = 1;
+
+        whoseTurn = ((yellowPoints + redPoints + lostPoints) % 2 === 0);
 
         gameTable = [
             [0, 0, 0, 0, 0, 0, 0],
@@ -38,7 +45,11 @@ rematch.forEach(button => {
         ];
         
         instructions[2].style.opacity = 0;
+        instructions[2].style.zIndex = -1;
         instructions[3].style.opacity = 0;
+        instructions[3].style.zIndex = -1;
+        instructions[4].style.opacity = 0;
+        instructions[4].style.zIndex = -1;
 
         turnUpdate();
 
@@ -71,7 +82,9 @@ for (let i = 0; i < 7; i++) {
 
                 updateTable(i);
                 boardUpdate();
+                moveCount++;
                 checkWinning();
+                console.log(moveCount);
                 if (!win) {
                     whoseTurn = !whoseTurn;
                     turnUpdate();
@@ -167,34 +180,47 @@ function turnUpdate() {
 }
 
 function checkWinning() {
-    for (let i = 0; i < 6; i++) {
-        for (let j = 0; j < 7; j++) {
-            if (gameTable[i][j] === 1) {
-                if (checkLine(i, j, 1) === 1) {
-                    instructions[0].style.opacity = 0;
-                    instructions[1].style.opacity = 0;
-                    instructions[2].style.opacity = 1;
-                    win = true;
-                    boardPieces.forEach(piece => {
-                        piece.style.cursor = 'default';
-                    });
-                    yellowPoints++;
-                    scores[0].innerHTML = yellowPoints;
-                }
-            } else if (gameTable[i][j] === 2) {
-                if (checkLine(i, j, 2) === 2) {
-                    instructions[0].style.opacity = 0;
-                    instructions[1].style.opacity = 0;
-                    instructions[3].style.opacity = 1;
-                    win = true;
-                    boardPieces.forEach(piece => {
-                        piece.style.cursor = 'default';
-                    });
-                    redPoints++;
-                    scores[1].innerHTML = redPoints;
+    if (moveCount < 42) {
+        for (let i = 0; i < 6; i++) {
+            for (let j = 0; j < 7; j++) {
+                if (gameTable[i][j] === 1) {
+                    if (checkLine(i, j, 1) === 1) {
+                        instructions[0].style.opacity = 0;
+                        instructions[1].style.opacity = 0;
+                        instructions[2].style.opacity = 1;
+                        instructions[2].style.zIndex = 1;
+                        win = true;
+                        boardPieces.forEach(piece => {
+                            piece.style.cursor = 'default';
+                        });
+                        board.style.opacity = 0.3;
+                        yellowPoints++;
+                        scores[0].innerHTML = yellowPoints;
+                    }
+                } else if (gameTable[i][j] === 2) {
+                    if (checkLine(i, j, 2) === 2) {
+                        instructions[0].style.opacity = 0;
+                        instructions[1].style.opacity = 0;
+                        instructions[3].style.opacity = 1;
+                        instructions[3].style.zIndex = 1;
+                        win = true;
+                        boardPieces.forEach(piece => {
+                            piece.style.cursor = 'default';
+                        });
+                        board.style.opacity = 0.3;
+                        redPoints++;
+                        scores[1].innerHTML = redPoints;
+                    }
                 }
             }
         }
+    } else {
+        instructions[0].style.opacity = 0;
+        instructions[1].style.opacity = 0;
+        instructions[4].style.opacity = 1;
+        instructions[4].style.zIndex = 1;
+        lostPoints++;
+        win = true;
     }
 }
 

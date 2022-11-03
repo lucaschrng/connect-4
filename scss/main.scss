@@ -59,6 +59,7 @@ main {
         opacity: 0;
         grid-column: 1;
         grid-row: 1;
+        z-index: -1;
 
         @media screen and (max-width: 1000px) {
             font-size: 2rem;
