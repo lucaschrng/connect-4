@@ -4,14 +4,38 @@ $cell : 0.144;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
 }
 
 body {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 5vh;
     background-color: #131313;
+}
+
+.instructions {
+    h2 {
+        font-weight: 400;
+        text-align: center;
+        display: none;
+
+        span {
+            font-weight: 500;
+        }
+    }
+
+    .yellow {
+        color: #ffae00;
+    }
+
+    .red {
+        color: #ff0000;
+    }
 }
 
 .game-space {
@@ -26,11 +50,15 @@ body {
     border-radius: 10px;
 
     img {
-        height: $cell * 90vh;
+        height: $cell * 70vh;
         width: auto;
 
+        &.board-piece {
+            cursor: pointer;
+        }
+
         &.chip {
-            height: $cell * 90vh * 90/100;
+            height: $cell * 70vh * 90/100;
             opacity: 0;
             z-index: -1;
         }

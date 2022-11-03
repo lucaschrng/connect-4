@@ -2,14 +2,33 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  color: #ffffff;
 }
 
 body {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 5vh;
   background-color: #131313;
+}
+
+.instructions h2 {
+  font-weight: 400;
+  text-align: center;
+  display: none;
+}
+.instructions h2 span {
+  font-weight: 500;
+}
+.instructions .yellow {
+  color: #ffae00;
+}
+.instructions .red {
+  color: #ff0000;
 }
 
 .game-space {
@@ -24,11 +43,14 @@ body {
   border-radius: 10px;
 }
 .game-space img {
-  height: 12.96vh;
+  height: 10.08vh;
   width: auto;
 }
+.game-space img.board-piece {
+  cursor: pointer;
+}
 .game-space img.chip {
-  height: 11.664vh;
+  height: 9.072vh;
   opacity: 0;
   z-index: -1;
 }
