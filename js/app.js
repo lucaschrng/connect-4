@@ -15,6 +15,8 @@ let redPoints = 0;
 let lostPoints = 0;
 let moveCount = 0;
 
+turnUpdate();
+
 let gameTable = [
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -60,8 +62,6 @@ rematch.forEach(button => {
         });
     })
 });
-
-turnUpdate();
 
 for (let i = 0; i < 7; i++) {
     for (let j = 0; j < 6; j++) {
