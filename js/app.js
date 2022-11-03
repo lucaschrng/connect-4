@@ -26,6 +26,8 @@ rematch.forEach(button => {
 
         win = false;
 
+        whoseTurn = ((yellowPoints + redPoints) % 2 === 0);
+
         gameTable = [
             [0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0],
