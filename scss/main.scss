@@ -25,9 +25,19 @@ main {
         "instructions instructions instructions"
         "score1         gamespace          score2";
     flex-direction: column;
-    justify-content: center;
+    justify-items: center;
     align-items: center;
     row-gap: 50px;
+
+    @media screen and (max-width: 1000px) {
+        
+    grid-template-columns: 1fr 1fr;
+        grid-template-rows: min-content min-content min-content;
+        grid-template-areas: 
+        "instructions  instructions"
+        "score1              score2"
+        "gamespace        gamespace";
+    }
 }
 
 .yellow {
@@ -78,8 +88,16 @@ main {
     justify-content: center;
     align-items: center;
 
+    @media screen and (max-width: 1000px) {
+        font-size: 1rem;
+    }
+
     &--value {
         font-size: 4rem;
+
+        @media screen and (max-width: 1000px) {
+            font-size: 2rem;
+        }
     }
 
     &:nth-child(2) {
@@ -94,7 +112,8 @@ main {
 .game-space {
     display: grid;
     height: fit-content;
-    grid-template-columns: repeat(7, 1fr);
+    width: fit-content;
+    grid-template-columns: repeat(7, min-content);
     grid-template-rows: repeat(6, 1fr);
     align-items: center;
     justify-items: center;
@@ -103,7 +122,8 @@ main {
     grid-area: gamespace;
 
     img {
-        height: $cell * 70vh;
+        height: $cell * 50vw;
+        max-height: $cell * 800px;
         width: auto;
 
         @media screen and (max-width: 1000px) {
@@ -115,7 +135,8 @@ main {
         }
 
         &.chip {
-            max-height: $cell * 70vh * 90/100;
+            max-height: $cell * 50vw * 90/100;
+            max-height: $cell * 800px * 90/100;
             opacity: 0;
             z-index: -1;
             

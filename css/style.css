@@ -21,9 +21,16 @@ main {
   grid-template-rows: min-content min-content;
   grid-template-areas: "instructions instructions instructions" "score1         gamespace          score2";
   flex-direction: column;
-  justify-content: center;
+  justify-items: center;
   align-items: center;
   row-gap: 50px;
+}
+@media screen and (max-width: 1000px) {
+  main {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content min-content min-content;
+    grid-template-areas: "instructions  instructions" "score1              score2" "gamespace        gamespace";
+  }
 }
 
 .yellow {
@@ -71,8 +78,18 @@ main {
   justify-content: center;
   align-items: center;
 }
+@media screen and (max-width: 1000px) {
+  .score {
+    font-size: 1rem;
+  }
+}
 .score--value {
   font-size: 4rem;
+}
+@media screen and (max-width: 1000px) {
+  .score--value {
+    font-size: 2rem;
+  }
 }
 .score:nth-child(2) {
   grid-area: score1;
@@ -84,7 +101,8 @@ main {
 .game-space {
   display: grid;
   height: fit-content;
-  grid-template-columns: repeat(7, 1fr);
+  width: fit-content;
+  grid-template-columns: repeat(7, min-content);
   grid-template-rows: repeat(6, 1fr);
   align-items: center;
   justify-items: center;
@@ -93,7 +111,8 @@ main {
   grid-area: gamespace;
 }
 .game-space img {
-  height: 10.08vh;
+  height: 7.2vw;
+  max-height: 115.2px;
   width: auto;
 }
 @media screen and (max-width: 1000px) {
@@ -105,7 +124,8 @@ main {
   cursor: pointer;
 }
 .game-space img.chip {
-  max-height: 9.072vh;
+  max-height: 6.48vw;
+  max-height: 103.68px;
   opacity: 0;
   z-index: -1;
 }
