@@ -11,36 +11,88 @@ $cell : 0.144;
 body {
     height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5vh;
     background-color: #131313;
 }
 
+main {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: min-content min-content;
+    grid-template-areas: 
+        "instructions instructions instructions"
+        "score1         gamespace          score2";
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 50px;
+}
+
+.yellow {
+    color: #ffae00;
+}
+
+.red {
+    color: #ff0000;
+}
+
 .instructions {
+    grid-area: instructions;
+    display: grid;
+
     h2 {
+        font-size: 3rem;
         font-weight: 400;
         text-align: center;
-        display: none;
+        opacity: 0;
+        grid-column: 1;
+        grid-row: 1;
+
+        @media screen and (max-width: 1000px) {
+            font-size: 2rem;
+        }
 
         span {
             font-weight: 500;
+
+            &.rematch {
+                font-size: 0.5em;
+                font-weight: 400;
+                opacity: 0.7;
+                text-decoration: underline;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
         }
     }
+}
 
-    .yellow {
-        color: #ffae00;
+.score {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &--value {
+        font-size: 4rem;
     }
 
-    .red {
-        color: #ff0000;
+    &:nth-child(2) {
+        grid-area: score1;
+    }
+
+    &:nth-child(3) {
+        grid-area: score2;
     }
 }
 
 .game-space {
     display: grid;
-    width: fit-content;
     height: fit-content;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
@@ -48,19 +100,28 @@ body {
     justify-items: center;
     border: #002ae0 1rem solid;
     border-radius: 10px;
+    grid-area: gamespace;
 
     img {
         height: $cell * 70vh;
         width: auto;
+
+        @media screen and (max-width: 1000px) {
+            height: $cell * 80vw;
+        }
 
         &.board-piece {
             cursor: pointer;
         }
 
         &.chip {
-            height: $cell * 70vh * 90/100;
+            max-height: $cell * 70vh * 90/100;
             opacity: 0;
             z-index: -1;
+            
+            @media screen and (max-width: 1000px) {
+                height: $cell * 80vw * 90/100;
+            }
         }
 
         @for $i from 1 through 6 {

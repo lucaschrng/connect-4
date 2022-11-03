@@ -2,11 +2,15 @@ let boardPieces = document.querySelectorAll('.board-piece');
 let yellowChips = document.querySelectorAll('.yellow-chip');
 let redChips = document.querySelectorAll('.red-chip');
 let instructions = document.querySelectorAll('.instructions h2');
+let rematch = document.querySelectorAll('.rematch');
+let scores = document.querySelectorAll('.score--value');
 // true = yellow
 let whoseTurn = true;
 let child;
 let row;
 let win = false;
+let yellowPoints = 0;
+let redPoints = 0;
 
 let gameTable = [
     [0, 0, 0, 0, 0, 0, 0],
@@ -16,6 +20,33 @@ let gameTable = [
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
 ];
+
+rematch.forEach(button => {
+    button.addEventListener('click', () => {
+
+        win = false;
+
+        gameTable = [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+        ];
+        
+        instructions[2].style.opacity = 0;
+        instructions[3].style.opacity = 0;
+
+        turnUpdate();
+
+        boardUpdate();
+
+        boardPieces.forEach(piece => {
+            piece.style.cursor = 'pointer';
+        });
+    })
+});
 
 turnUpdate();
 
@@ -37,11 +68,11 @@ for (let i = 0; i < 7; i++) {
             if (checkColumn(i) >= 0 && !win) {
 
                 updateTable(i);
-                whoseTurn = !whoseTurn;
-                turnUpdate();
                 boardUpdate();
                 checkWinning();
                 if (!win) {
+                    whoseTurn = !whoseTurn;
+                    turnUpdate();
                     previewChip(i);
                 }
             }
@@ -125,11 +156,11 @@ function boardUpdate() {
 
 function turnUpdate() {
     if (whoseTurn) {
-        instructions[0].style.display = 'block';
-        instructions[1].style.display = 'none';
+        instructions[0].style.opacity = 1;
+        instructions[1].style.opacity = 0;
     } else {
-        instructions[1].style.display = 'block';
-        instructions[0].style.display = 'none';
+        instructions[1].style.opacity = 1;
+        instructions[0].style.opacity = 0;
     }
 }
 
@@ -138,17 +169,27 @@ function checkWinning() {
         for (let j = 0; j < 7; j++) {
             if (gameTable[i][j] === 1) {
                 if (checkLine(i, j, 1) === 1) {
-                    instructions[0].style.display = 'none';
-                    instructions[1].style.display = 'none';
-                    instructions[2].style.display = 'block';
+                    instructions[0].style.opacity = 0;
+                    instructions[1].style.opacity = 0;
+                    instructions[2].style.opacity = 1;
                     win = true;
+                    boardPieces.forEach(piece => {
+                        piece.style.cursor = 'default';
+                    });
+                    yellowPoints++;
+                    scores[0].innerHTML = yellowPoints;
                 }
             } else if (gameTable[i][j] === 2) {
                 if (checkLine(i, j, 2) === 2) {
-                    instructions[0].style.display = 'none';
-                    instructions[1].style.display = 'none';
-                    instructions[3].style.display = 'block';
+                    instructions[0].style.opacity = 0;
+                    instructions[1].style.opacity = 0;
+                    instructions[3].style.opacity = 1;
                     win = true;
+                    boardPieces.forEach(piece => {
+                        piece.style.cursor = 'default';
+                    });
+                    redPoints++;
+                    scores[1].innerHTML = redPoints;
                 }
             }
         }
