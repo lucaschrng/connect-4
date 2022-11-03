@@ -1,0 +1,57 @@
+$cell : 0.144;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #131313;
+}
+
+.game-space {
+    display: grid;
+    width: fit-content;
+    height: fit-content;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    align-items: center;
+    justify-items: center;
+    border: #002ae0 1rem solid;
+    border-radius: 10px;
+
+    img {
+        height: $cell * 90vh;
+        width: auto;
+
+        &.chip {
+            height: $cell * 90vh * 90/100;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        @for $i from 1 through 6 {
+            @for $j from 1 through 7 {
+                &:nth-child(#{($i - 1) * 7 + $j}) {
+                    grid-column: $j;
+                    grid-row: $i;
+                }
+
+                &:nth-child(#{($i - 1) * 7 + $j + 42}) {
+                    grid-column: $j;
+                    grid-row: $i;
+                }
+
+                &:nth-child(#{($i - 1) * 7 + $j + 84}) {
+                    grid-column: $j;
+                    grid-row: $i;
+                }
+            }
+        }
+    }
+}
