@@ -71,7 +71,12 @@ for (let i = 0; i < 7; i++) {
         })
 
         boardPieces[j * 7 + i].addEventListener('mouseover', () => {
-            if (checkColumn(i) >= 0 && !win) {
+            if (
+                checkColumn(i) >= 0 &&
+                !win &&
+                !navigator.userAgent.match(/Android/i) &&
+                !navigator.userAgent.match(/iPhone/i)) {
+
                 previewChip(i);
             }
         })
@@ -88,7 +93,12 @@ for (let i = 0; i < 7; i++) {
                 if (!win) {
                     whoseTurn = !whoseTurn;
                     turnUpdate();
-                    previewChip(i);
+                    if (
+                        !navigator.userAgent.match(/Android/i) &&
+                        !navigator.userAgent.match(/iPhone/i)) {
+                            
+                        previewChip(i);
+                    }
                 }
             }
         })
