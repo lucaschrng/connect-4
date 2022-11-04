@@ -114,7 +114,7 @@ main {
 }
 .game-space img {
   height: 7.2vw;
-  max-height: 115.2px;
+  max-height: 86.4px;
   width: auto;
 }
 @media screen and (max-width: 1000px) {
@@ -127,7 +127,7 @@ main {
 }
 .game-space img.chip {
   max-height: 6.48vw;
-  max-height: 103.68px;
+  max-height: 77.76px;
   opacity: 0;
   z-index: -1;
 }

@@ -125,7 +125,7 @@ main {
 
     img {
         height: $cell * 50vw;
-        max-height: $cell * 800px;
+        max-height: $cell * 600px;
         width: auto;
 
         @media screen and (max-width: 1000px) {
@@ -138,7 +138,7 @@ main {
 
         &.chip {
             max-height: $cell * 50vw * 90/100;
-            max-height: $cell * 800px * 90/100;
+            max-height: $cell * 600px * 90/100;
             opacity: 0;
             z-index: -1;
             
